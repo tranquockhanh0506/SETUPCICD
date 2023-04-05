@@ -31,7 +31,7 @@ jobs:
       - run: flutter clean
       - run: flutter pub get
       - run: flutter build apk --release
-        -
+
       - name: upload artefact to App Center
         uses: wzieba/AppCenter-Github-Action@v1
         with:
