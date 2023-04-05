@@ -31,14 +31,22 @@ jobs:
       - run: flutter clean
       - run: flutter pub get
       - run: flutter build apk --release
-
-      - name: upload to appcenter
-        uses: jmatsu/dg-upload-app-action@v0.2.2
-        with:
-          app_owner_name: CICD
-          api_token: 2f0778f7b6374578d17861ed6f893ebddeabc70e
-          app_file_path: "build/app/outputs/flutter-apk/app-release.apk"
-          package_name: "CICD"
-          message: "dev"
+      - name: upload artefact to App Center
+       uses: wzieba/AppCenter-Github-Action@v1
+       with:
+        appName: CICD
+        token: ${{secrets.APP_CENTER_TOKEN}}
+        group: GroupCicd
+        file: build/app/outputs/flutter-apk/app-release.apk
+        notifyTesters: true
+        debug: false
+#      - name: upload to appcenter
+#        uses: jmatsu/dg-upload-app-action@v0.2.2
+#        with:
+#          app_owner_name: CICD
+#          api_token: 2f0778f7b6374578d17861ed6f893ebddeabc70e
+#          app_file_path: "build/app/outputs/flutter-apk/app-release.apk"
+#          package_name: "CICD"
+#          message: "dev"
 
 
