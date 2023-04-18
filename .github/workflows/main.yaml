@@ -33,10 +33,15 @@ jobs:
       - run: flutter build apk --release
 
       - name: upload artefact to App Center
-        uses: joabalea/App-Center-action@v1.0.2
+        uses: wzieba/AppCenter-Github-Action@v1
         with:
-          command: appcenter distribute stores publish -s Beta -f build/app/outputs/flutter-apk/app-release.apk -r releaseNote -a user/app
+          appName: wzieba/CICD
           token: ${{secrets.APP_CENTER_TOKEN}}
+          group: "GroupCicd"
+          file: "build/app/outputs/flutter-apk/app-release.apk"
+          notifyTesters: true
+          debug: false
+
 #      - name: upload Deploygate
 #        uses: jmatsu/dg-upload-app-action@v0.2.2
 #        with:
