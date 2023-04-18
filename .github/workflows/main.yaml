@@ -37,10 +37,10 @@ jobs:
         with:
           appName: ${{secrets.ANDROID_APP_NAME}}
           token: ${{secrets.APP_CENTER_TOKEN}}
-          group: GroupCicd
+          group: Collaborators
           file: build/app/outputs/flutter-apk/app-release.apk
           notifyTesters: true
-          debug: false
+          debug: true
 
 
 #      - name: upload Deploygate
