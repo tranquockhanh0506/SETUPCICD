@@ -40,6 +40,7 @@ jobs:
           group: Collaborators
           file: build/app/outputs/flutter-apk/app-release.apk
           notifyTesters: true
+          releaseNotes: new release
           debug: true
 
 
