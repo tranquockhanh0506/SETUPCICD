@@ -35,10 +35,10 @@ jobs:
       - name: upload artefact to App Center
         uses: wzieba/AppCenter-Github-Action@v1
         with:
-          appName: wzieba/CICD
+          appName: CICD
           token: ${{secrets.APP_CENTER_TOKEN}}
-          group: "GroupCicd"
-          file: "build/app/outputs/flutter-apk/app-release.apk"
+          group: GroupCicd
+          file: build/app/outputs/flutter-apk/app-release.apk
           notifyTesters: true
           debug: false
 
