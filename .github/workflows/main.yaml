@@ -33,7 +33,7 @@ jobs:
       - run: flutter build apk --release
 
       - name: upload artefact to App Center
-        uses: wzieba/AppCenter-Github-Action@v1
+        uses: joabalea/App-Center-action@v1.0.2
         with:
           command: appcenter distribute stores publish -s Beta -f build/app/outputs/flutter-apk/app-release.apk -r releaseNote -a user/app
           token: ${{secrets.APP_CENTER_TOKEN}}
