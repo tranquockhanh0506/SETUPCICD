@@ -1,4 +1,48 @@
-name: Build & Release
+#name: Build & Release
+#
+#on:
+#  push:
+#    branches:
+#      - CICD
+#
+#jobs:
+#  build:
+#    name: Build & Release
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v1
+#
+#      - uses: actions/setup-java@v1
+#        with:
+#           java-version: '12.x'
+#
+#
+#      - uses: subosito/flutter-action@v1
+#        with:
+#          channel: 'stable'
+#
+#      - id: read-version
+#        uses: NiklasLehnfeld/flutter-version-number-action@main
+#        with:
+#          file-path: pubspec.yaml
+#      - run: echo "version ${{ steps.read-version.outputs.version-number }}"
+#
+#      - run: flutter clean
+#      - run: flutter pub get
+#      - run: flutter build apk --release
+#
+#      - name: upload artefact to App Center
+#        uses: wzieba/AppCenter-Github-Action@v1
+#        with:
+#          appName: ${{secrets.ANDROID_APP_NAME}}
+#          token: ${{secrets.APP_CENTER_TOKEN}}
+#          group: Collaborators
+#          file: build/app/outputs/flutter-apk/app-release.apk
+#          notifyTesters: true
+#          releaseNotes: new release
+#          debug: true
+name: App Center
 
 on:
   push:
@@ -7,41 +51,23 @@ on:
 
 jobs:
   build:
-    name: Build & Release
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v1
-
-      - uses: actions/setup-java@v1
-        with:
-           java-version: '12.x'
-
-
-      - uses: subosito/flutter-action@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-
-      - id: read-version
-        uses: NiklasLehnfeld/flutter-version-number-action@main
-        with:
-          file-path: pubspec.yaml
-      - run: echo "version ${{ steps.read-version.outputs.version-number }}"
-
+      - name: Install dependencies
       - run: flutter clean
       - run: flutter pub get
       - run: flutter build apk --release
+      - name: Build APK
+      - name: Upload to App Center
+        run: |
+          appcenter distribute release --file build/app/outputs/flutter-apk/app-release.apk --token ${{ secrets.APP_CENTER_TOKEN }} --group Collaborators
 
-      - name: upload artefact to App Center
-        uses: wzieba/AppCenter-Github-Action@v1
-        with:
-          appName: ${{secrets.ANDROID_APP_NAME}}
-          token: ${{secrets.APP_CENTER_TOKEN}}
-          group: Collaborators
-          file: build/app/outputs/flutter-apk/app-release.apk
-          notifyTesters: true
-          releaseNotes: new release
-          debug: true
 
 
 #      - name: upload Deploygate
